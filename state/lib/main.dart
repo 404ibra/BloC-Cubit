@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:state/cubit/counter_cubit.dart';
+import 'package:state/cubit/fetch_user.dart';
 import 'package:state/view/counter_screen.dart';
+import 'package:state/view/fetch_name.dart';
 
 void main() {
-  runApp(BlocProvider(
-    create: (context) => CounterCubit(),
+  runApp(MultiBlocProvider(
+    providers: [
+      BlocProvider(
+        create: (context) => FetchCubit(),
+      ),
+      BlocProvider(
+        create: (context) => CounterCubit(),
+      ),
+    ],
     child: const MyApp(),
   ));
 }
@@ -20,7 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const CounterScreen(),
+      home: const FetchPage(),
     );
   }
 }
